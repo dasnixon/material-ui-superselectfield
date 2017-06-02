@@ -529,7 +529,8 @@ class SelectField extends Component {
       autoCompleteElementHeight, checkedIcon, unCheckedIcon, hoverColor,
       checkPosition, innerSelectionsStyle, outerSelectionsStyle, allowSelectAll,
       selectAllRenderer, selectAllItem, selectAllElementHeight,
-      floatingLabelFixed, footerElementHeight, noMatchFoundHeight
+      floatingLabelFixed, footerElementHeight, noMatchFoundHeight,
+      iconButtonElement
     } = this.props
     const { itemsLength, selectedItems } = this.state
 
@@ -646,23 +647,27 @@ class SelectField extends Component {
         }}
       >
 
-        <SelectionsPresenter
-          isFocused={this.state.isFocused}
-          isOpen={this.state.isOpen}
-          disabled={disabled}
-          hintText={hintText}
-          muiTheme={this.context.muiTheme}
-          selectedValues={selectedItems}
-          selectionsRenderer={selectionsRenderer}
-          floatingLabel={floatingLabel}
-          floatingLabelStyle={floatingLabelStyle}
-          floatingLabelFocusStyle={floatingLabelFocusStyle}
-          underlineStyle={underlineStyle}
-          underlineFocusStyle={underlineFocusStyle}
-          innerSelectionsStyle={innerSelectionsStyle}
-          outerSelectionsStyle={outerSelectionsStyle}
-          floatingLabelFixed={floatingLabelFixed}
-        />
+        {!isValidElement(iconButtonElement) &&
+          <SelectionsPresenter
+            isFocused={this.state.isFocused}
+            isOpen={this.state.isOpen}
+            disabled={disabled}
+            hintText={hintText}
+            muiTheme={this.context.muiTheme}
+            selectedValues={selectedItems}
+            selectionsRenderer={selectionsRenderer}
+            floatingLabel={floatingLabel}
+            floatingLabelStyle={floatingLabelStyle}
+            floatingLabelFocusStyle={floatingLabelFocusStyle}
+            underlineStyle={underlineStyle}
+            underlineFocusStyle={underlineFocusStyle}
+            innerSelectionsStyle={innerSelectionsStyle}
+            outerSelectionsStyle={outerSelectionsStyle}
+            floatingLabelFixed={floatingLabelFixed}
+          />}
+
+        {isValidElement(iconButtonElement) &&
+          iconButtonElement}
 
         <Popover
           open={this.state.isOpen}
@@ -833,7 +838,8 @@ SelectField.propTypes = {
   selectAllRenderer: PropTypes.func,
   selectAllElementHeight: PropTypes.number,
   floatingLabelFixed: PropTypes.bool,
-  noMatchFoundHeight: PropTypes.number
+  noMatchFoundHeight: PropTypes.number,
+  iconButtonElement: PropTypes.element
 }
 
 SelectField.defaultProps = {
@@ -875,7 +881,8 @@ SelectField.defaultProps = {
     )
   },
   selectAllElementHeight: 36,
-  floatingLabelFixed: false
+  floatingLabelFixed: false,
+  iconButtonElement: null
 }
 
 export default SelectField
